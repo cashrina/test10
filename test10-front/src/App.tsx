@@ -1,11 +1,15 @@
 import { Route, Routes } from 'react-router-dom';
-import NewsForm from "./features/news/components/NewsForm";
+import NewNews from "./features/news/containers/NewNews";
+import {Container} from "@mui/material";
 
 const App = () => (
     <>
-     <Routes>
-         <Route path="/news" element={<NewsForm/>} />
-     </Routes>
+        <Container>
+            <Routes>
+                <Route path="/" element={<NewNews/>} />
+                <Route path="/news" element={<NewNews/>} />
+            </Routes>
+        </Container>
     </>
 );
 

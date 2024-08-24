@@ -4,13 +4,13 @@ import {Grid, TextField} from "@mui/material";
 import FileInput from "../../../UI/FileInput/FileInput";
 import {LoadingButton} from "@mui/lab";
 import SaveIcon from '@mui/icons-material/Save';
-//
-// interface Props {
-//     onSubmit: (product: NewsMutation) => void;
-//     isLoading: boolean;
-// }
 
-const NewsForm = () => {
+interface Props {
+    onSubmit: (product: NewsMutation) => void;
+    isLoading: boolean;
+}
+
+const NewsForm:React.FC<Props> = ({onSubmit, isLoading}) => {
     const [state, setState] = useState<NewsMutation>({
         title: '',
         description: '',
@@ -19,6 +19,7 @@ const NewsForm = () => {
 
     const submitFormHandler = (event: React.FormEvent) => {
         event.preventDefault();
+        onSubmit({ ...state });
     };
 
     const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,6 +70,7 @@ const NewsForm = () => {
             <Grid item>
                 <LoadingButton
                     type="submit"
+                    loading={isLoading}
                     loadingPosition="start"
                     startIcon={<SaveIcon />}
                     variant="contained"

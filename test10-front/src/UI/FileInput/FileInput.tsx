@@ -7,8 +7,8 @@ interface Props {
   label: string;
 }
 
-const FileInput: React.FC<Props> = ({onChange, name, label}) => {
-  const [filename, setFilename] = useState<string>('');
+const FileInput: React.FC<Props> = ({ onChange, name, label }) => {
+  const [filename, setFilename] = useState('');
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const activateInput = () => {
@@ -28,18 +28,19 @@ const FileInput: React.FC<Props> = ({onChange, name, label}) => {
   };
 
   return (
-    <>
-      <input type='file' name={name} style={{display: 'none'}} ref={inputRef} />
-      <Grid container spacing={2} alignItems="center">
-        <Grid item xs>
-          <TextField label={label} InputProps={{readOnly:true}} value={filename} onClick={activateInput} />
+      <>
+        <input type="file" name={name} style={{ display: 'none' }} ref={inputRef} onChange={onFileChange} />
+        <Grid container spacing={2} alignItems="center">
+          <Grid item xs>
+            <TextField label={label} InputProps={{ readOnly: true }} value={filename} onClick={activateInput} />
+          </Grid>
+          <Grid item>
+            <Button variant="outlined" onClick={activateInput}>
+              Browse
+            </Button>
+          </Grid>
         </Grid>
-        <Grid item>
-          <Button variant="outlined" onClick={activateInput}>Browse</Button>
-        </Grid>
-
-      </Grid>
-    </>
+      </>
   );
 };
 
