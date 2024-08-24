@@ -63,6 +63,7 @@ export const newsSlice = createSlice({
 
     selectors: {
         selectNews: (state) => state.items,
+        selectOneNews: (state) => state.news,
         selectNewsFetching: (state) => state.itemsFetching,
         selectPostNews: (state) => state.isCreating,
         selectDeleteNews: (state) => state.onDelete,
@@ -74,6 +75,7 @@ export const newsReducer = newsSlice.reducer;
 
 export const {
     selectNews,
+    selectOneNews,
     selectNewsFetching,
     selectPostNews,
     selectDeleteNews,

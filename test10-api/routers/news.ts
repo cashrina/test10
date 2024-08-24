@@ -3,7 +3,6 @@ import mysqlDb from '../mysqlDb';
 import {News, NewsMutation} from '../types';
 import {imagesUpload} from '../multer';
 import {ResultSetHeader, RowDataPacket} from 'mysql2';
-import multer from 'multer';
 
 const newsRouter = express.Router();
 
