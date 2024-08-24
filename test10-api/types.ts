@@ -10,5 +10,4 @@ export interface NewsMutation {
   title: string;
   description: string;
   image: string | null;
-  date: string;
 }
