@@ -21,7 +21,7 @@ const News = () => {
                     <Typography variant="h4">Products</Typography>
                 </Grid>
                 <Grid item>
-                    <Button color="primary" component={Link} to="/news">
+                    <Button color="primary" component={Link} to="/new/news">
                         Add new post
                     </Button>
                 </Grid>
@@ -31,7 +31,7 @@ const News = () => {
                     <NewsItem
                         key={one_news.id}
                         id={one_news.id}
-                        description={one_news.description}
+                        title={one_news.title}
                         image={one_news.image}
                         date={one_news.date}
                     />

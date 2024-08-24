@@ -63,6 +63,7 @@ export const commentsSlice = createSlice({
 
     selectors: {
         selectComments: (state) => state.items,
+        selectOneComments: (state) => state.comments,
         selectCommentsFetching: (state) => state.itemsFetching,
         selectPostComments: (state) => state.isCreating,
         selectDeleteComments: (state) => state.onDelete,
@@ -74,6 +75,7 @@ export const commentsReducer = commentsSlice.reducer;
 
 export const {
     selectComments,
+    selectOneComments,
     selectCommentsFetching,
     selectPostComments,
     selectDeleteComments,

@@ -8,8 +8,8 @@ const App = () => (
     <>
         <Container>
             <Routes>
-                <Route path="/" element={<News/>} />
-                <Route path="/news" element={<NewNews/>} />
+                <Route path="/news" element={<News/>} />
+                <Route path="/new/news" element={<NewNews/>} />
                 <Route path="/news/:id" element={<OneNews/>} />
             </Routes>
         </Container>

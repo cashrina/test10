@@ -1,22 +1,24 @@
-import {Card, CardActions, CardContent, CardHeader, CardMedia, Grid, IconButton, styled} from "@mui/material";
+import {Card, CardActions, CardContent, CardHeader, Grid, IconButton} from "@mui/material";
 import imageNotFound from '../../../assets/images/image-not-found.jpeg';
 import React from "react";
 import {API_URL} from "../../../constants";
 import {Link} from "react-router-dom";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
-const ImageCardMedia = styled(CardMedia)({
-    height: 0, paddingTop: '56,25%'
-});
 
 interface Props {
     id: number;
-    description: string;
+    title: string;
     image: string | null;
     date: string;
 }
 
-const NewsItem: React.FC<Props> = ({id, description, image, date}) => {
+const ImageCardMedia: React.FC<{ image: string }> = ({ image }) => (
+    <img src={image} alt="News" style={{ width: '100%', height: 'auto' }} />
+);
+
+const NewsItem: React.FC<Props> = ({id, title, image, date}) => {
+
     let cardImage = imageNotFound;
 
     if (image) {
@@ -25,21 +27,24 @@ const NewsItem: React.FC<Props> = ({id, description, image, date}) => {
     return (
         <Grid item sx={{width: '300px'}}>
             <Card sx={{height: '100%'}}>
-                <CardHeader description={description}/>
+                <CardHeader
+                    title={title}
+                />
                 <ImageCardMedia image={cardImage}></ImageCardMedia>
                 <CardContent>
                     Date: {date}
                 </CardContent>
                 <CardActions>
                     <IconButton component={Link} to={`/news/${id}`}>
-                        <ArrowForwardIcon/>
                         Read full post
+                        <ArrowForwardIcon/>
                     </IconButton>
                 </CardActions>
 
                 <CardActions>
                     <IconButton component={Link} to={`/news/delete`}>
                         Delete
+                        <ArrowForwardIcon/>
                     </IconButton>
                 </CardActions>
             </Card>

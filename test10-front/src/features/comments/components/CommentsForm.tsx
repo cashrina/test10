@@ -9,7 +9,7 @@ interface Props {
     isLoading: boolean;
 }
 
-const CommentsForm:React.FC<Props> = ({onSubmit}) => {
+const CommentsForm:React.FC<Props> = ({onSubmit, isLoading}) => {
 
     const [state, setState] = useState<CommentsMutation>({
         news_id: 0,
@@ -57,6 +57,7 @@ const CommentsForm:React.FC<Props> = ({onSubmit}) => {
             <Grid item>
                 <LoadingButton
                     type="submit"
+                    loading={isLoading}
                     loadingPosition="start"
                     startIcon={<SaveIcon />}
                     variant="contained"

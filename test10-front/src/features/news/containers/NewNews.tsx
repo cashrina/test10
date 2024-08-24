@@ -13,7 +13,7 @@ const NewNews = () => {
 
     const onFormSubmit = async (newsMutation: NewsMutation) => {
         await dispatch(createNews(newsMutation));
-        navigate('/');
+        navigate('/news');
     };
 
     return (
