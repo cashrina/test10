@@ -2,7 +2,7 @@ import path from 'path';
 import {CorsOptions} from 'cors';
 
 const rootPath = __dirname;
-const corsWhiteList: string[] = ['http://localhost:5174'];
+const corsWhiteList: string[] = ['http://localhost:5173'];
 
 const corsOptions: CorsOptions = {
   origin: (origin, callback) => {
