@@ -1,5 +1,5 @@
-create schema news collate utf8mb4_general_ci;
-use news;
+create schema website collate utf8mb4_general_ci;
+use website;
 
 create table category
 (
