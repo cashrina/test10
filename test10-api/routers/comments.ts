@@ -61,4 +61,30 @@ commentsRouter.post('/', async (req, res) => {
   return res.send(products[0]);
 });
 
+commentsRouter.delete('/:id', async (req, res) => {
+  const id = parseInt(req.params.id, 10);
+
+  if (isNaN(id)) {
+    return res.status(400).send({ error: 'Invalid comments ID' });
+  }
+
+  try {
+    const connection = mysqlDb.getConnection();
+
+    const [deleteResult] = await connection.query<ResultSetHeader>(
+      'DELETE FROM comments WHERE id = ?',
+      [id]
+    );
+
+    if (deleteResult.affectedRows === 0) {
+      return res.status(404).send({ error: 'Comments not found!' });
+    }
+
+    return res.status(204).send();
+  } catch (error) {
+    console.error('Error operation:', error);
+    return res.status(500).send({ error: 'Internal Server Error' });
+  }
+});
+
 export default commentsRouter;
