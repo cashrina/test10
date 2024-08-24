@@ -17,11 +17,11 @@ export interface Comments {
   id: number;
   news_id: number;
   author: string | null;
-  description: string | null;
+  description: string;
 }
 
 export interface CommentsMutation {
   news_id: number;
   author: string | null;
-  description: string | null;
+  description: string;
 }
