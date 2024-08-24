@@ -11,3 +11,16 @@ export interface NewsMutation {
     description: string;
     image: File | null;
 }
+
+export interface Comments {
+    id: number;
+    news_id: number;
+    author: string | null;
+    description: string;
+}
+
+export interface CommentsMutation {
+    news_id: number;
+    author: string | null;
+    description: string;
+}
