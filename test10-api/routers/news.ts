@@ -7,8 +7,9 @@ import {ResultSetHeader, RowDataPacket} from 'mysql2';
 const newsRouter = express.Router();
 
 newsRouter.get("/", async (_req, res, next) => {
+  const connection = mysqlDb.getConnection();
   try {
-    const result = await mysqlDb.getConnection().query("SELECT id, title, image, date FROM news");
+    const result = await connection.query("SELECT id, title, image, date FROM news");
     const news: News[] = result[0] as News[];
     return res.send(news);
   } catch (e) {
@@ -17,11 +18,12 @@ newsRouter.get("/", async (_req, res, next) => {
 });
 
 newsRouter.post('/', imagesUpload.single(''), async (req, res) => {
+  const connection = mysqlDb.getConnection();
   if (!req.body.title || !req.body.description) {
     return res.status(400).send({ error: 'Title and description are required!' });
   }
 
-  const existingResult = await mysqlDb.getConnection().query(
+  const existingResult = await connection.query(
     'SELECT * FROM news WHERE title = ?',
     [req.body.title]
   );
@@ -37,12 +39,12 @@ newsRouter.post('/', imagesUpload.single(''), async (req, res) => {
     image: req.file ? req.file.filename : null,
   };
 
-  const insertResult = await mysqlDb.getConnection().query(
+  const insertResult = await connection.query(
     'INSERT INTO news(title, description, image) VALUES (?, ?, ?)',
     [new_news.title, new_news.description, new_news.image]
   );
   const resultHeader = insertResult[0] as ResultSetHeader;
-  const getNewResult = await mysqlDb.getConnection().query(
+  const getNewResult = await connection.query(
     'SELECT * FROM news WHERE id = ?',
     [resultHeader.insertId]
   );
@@ -78,22 +80,27 @@ newsRouter.get('/:id', async (req, res) => {
   }
 });
 
+
 newsRouter.delete('/:id', async (req, res) => {
-  const id = parseInt(req.params.id, 10);
+  const id = parseInt(req.params.id);
+  const connection = mysqlDb.getConnection();
 
   if (isNaN(id)) {
     return res.status(400).send({ error: 'Invalid news ID' });
   }
 
   try {
-    const connection = mysqlDb.getConnection();
+    await connection.query<ResultSetHeader>(
+      'DELETE FROM comments WHERE news_id = ?',
+      [id]
+    );
 
-    const [deleteResult] = await connection.query<ResultSetHeader>(
+    const [deleteNewsResult] = await connection.query<ResultSetHeader>(
       'DELETE FROM news WHERE id = ?',
       [id]
     );
 
-    if (deleteResult.affectedRows === 0) {
+    if (deleteNewsResult.affectedRows === 0) {
       return res.status(404).send({ error: 'News not found!' });
     }
 
@@ -103,5 +110,6 @@ newsRouter.delete('/:id', async (req, res) => {
     return res.status(500).send({ error: 'Internal Server Error' });
   }
 });
+
 
 export default newsRouter;
